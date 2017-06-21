@@ -284,7 +284,7 @@ header {
     font-size: 16px;
     line-height: 26px;
     background-color: transparent;
-    .send-btn {
+    .send-btn, .preview-btn, .edit-btn {
       font-weight: normal;
       padding: 8px 15px;
       background-color: $gold;
@@ -292,6 +292,23 @@ header {
       border: none;
       margin-top: 10px;
       font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+      color: #fff !important;
+      line-height: 21px;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+    .send-btn {
+      border-bottom-left-radius: 0;
+      border-top-left-radius: 0;
+      padding-right: 20px;
+    }
+    .preview-btn, .edit-btn {
+      border-bottom-right-radius: 0;
+      border-top-right-radius: 0;
+      margin-right: -3px;
+      padding-left: 25px;
+      padding-right: 25px;
     }
   }
 
