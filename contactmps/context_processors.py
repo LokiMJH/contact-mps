@@ -10,8 +10,8 @@ def general(request):
 
     info = {
         'BASE_URL': settings.BASE_URL,
-        'SITE_NAME': 'Contact Members of Parliament',
-        'SITE_DESCRIPTION': "You have the opportunity to lobby Members of Parliament. Just because South Africa has a proportional representation electoral system for provincial and national government, doesn't mean that members of parliament don't represent citizens of South Africa. MPs are allocated to Constituency Offices where they should be available to interact with members of the public."
+        'SITE_NAME': '#RepresentMe',
+        'SITE_DESCRIPTION': "How do you feel about the vote of no confidence in the President? Email your MP. Your Parliament. Your Voice.",
     }
 
     ga_tracking_id = getattr(settings, 'GOOGLE_ANALYTICS_ID', False)

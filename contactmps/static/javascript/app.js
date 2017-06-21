@@ -16,10 +16,12 @@ var recaptchaLoaded = function() {
   pymChild.sendHeight();
 };
 
-var template = "I am a citizen from {{{ location }}}. The levels of corruption in our country {{{ corruption_level_opinion }}} and I feel it is very important for my voice to heard.\
-In particular the upcoming vote of no confidence in parliament is something I feel I want to voice my opinion on. I would urge you to {{{ action_request }}} the vote of no confidence.\
-Other issues that I feel very strongly about are {{{ other_issues }}}.\
-\
+var template = "Honourable Member {{{ recipient_name }}},\n\
+\n\
+I am a citizen from {{{ location }}}. The levels of corruption in our country {{{ corruption_level_opinion }}} and I feel it is very important for my voice to heard.\n\
+In particular the upcoming vote of no confidence in parliament is something I feel I want to voice my opinion on. I would urge you to {{{ action_request }}} the vote of no confidence.\n\
+Other issues that I feel very strongly about are {{{ other_issues }}}.\n\
+\n\
 As a member of parliament you represent all South Africans, including me. Please vote in favour of good governance - a governance that is best suited to realising my hopes for our future.";
 
 if ($('.create-email-page').length > 0) {
@@ -79,14 +81,15 @@ if ($('.create-email-page').length > 0) {
 }
 
 function updateBody($form) {
-    var context = {
-      'corruption_level_opinion': "don't really seem like an issue",
-      'action_request': "abstain from",
-      'other_issues': "plentiful",
-      'location': $form.find('input[name=location]').val() || "____"
-    };
-    var body = Mustache.render(template, context);
-    $form.find('input[name=body]').val(body);
+  var context = {
+    'recipient_name': $("#recipient").text(),
+    'corruption_level_opinion': "don't really seem like an issue",
+    'action_request': "abstain from",
+    'other_issues': "plentiful",
+    'location': $form.find('input[name=location]').val() || "____"
+  };
+  var body = Mustache.render(template, context);
+  $form.find('input[name=body]').val(body);
 }
 
 function chooseMP(mp) {

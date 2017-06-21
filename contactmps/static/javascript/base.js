@@ -2,10 +2,10 @@ var pymChild = new pym.Child({
   id: "contactmps-embed-parent"
 });
 
-window.onload = ((function() {
+$(window).on('load', function() {
   pymChild.sendHeight();
   console.info("contactmps child loaded");
-}))();
+});
 
 // social-sharing
 $('.fb-share').on('click', function(e) {

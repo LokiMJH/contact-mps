@@ -1,6 +1,8 @@
 from django.conf import settings
-from django.core.mail import EmailMessage
+from django.core.mail import EmailMultiAlternatives
+from django.core.urlresolvers import reverse
 from django.db import models
+from django.utils.html import escape
 import logging
 import os
 import re
@@ -98,12 +100,18 @@ class Email(models.Model):
     remote_ip = models.CharField(max_length=20, help_text="User's remote IP")
     user_agent = models.CharField(max_length=200, help_text="User's user agent string")
     subject = models.CharField(max_length=200, null=False, blank=False)
-    body = models.TextField(null=False, blank=False)
+    body_txt = models.TextField(null=False, blank=False)
     from_name = models.CharField(max_length=70, null=False, blank=False)
     from_email = models.EmailField(null=False, blank=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     secure_id = models.CharField(max_length=100, blank=True, unique=True, default=secure_id)
+
+    @property
+    def body_html(self):
+        # VERY IMPORTANT: Escape any HTML someone might have entered
+        html_escaped_text = escape(self.body_txt)
+        return re.sub("(\r\n|\n|\r)", "<br />", html_escaped_text)
 
     def as_dict(self):
         return {
@@ -111,7 +119,8 @@ class Email(models.Model):
             'to_person': self.to_person.as_dict(),
             'to_addresses': self.to_addresses,
             'subject': self.subject,
-            'body': self.body,
+            'body_html': self.body_html,
+            'body_txt': self.body_txt,
             'from_name': self.from_name,
             'from_email': self.from_email,
             'secure_id': self.secure_id,
@@ -124,13 +133,20 @@ class Email(models.Model):
         recipients = ["%s <%s>" % (self.to_person.name, c.value) for c in self.to_person.contactdetails.filter(type='email').all()]
         if settings.SEND_EMAILS:
             log.info("Sending email to %s from %s" % (recipients, self.from_email))
-            email = EmailMessage(
+
+            url = settings.BASE_URL + reverse('email-detail', kwargs={'secure_id': self.secure_id})
+            body_txt = "%s\n\nThis message can also be viewed at %s" % (self.body_txt, url)
+            body_html = "%s<br><br>This message can also be viewd at <a href=\"%s\">%s</a>" % (
+                self.body_html, url, url)
+
+            email = EmailMultiAlternatives(
                 self.subject,
-                self.body,
+                body_txt,
                 sender,
                 recipients,
                 cc=[sender],
             )
+            email.attach_alternative(body_html, "text/html")
             email.send()
         self.to_addresses = ", ".join(recipients)
         self.save()

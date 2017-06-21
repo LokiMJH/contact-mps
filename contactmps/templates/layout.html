@@ -8,6 +8,8 @@
 {% endblock %}
 
 {% block body %}
+<div class="row">
+  <div class="col-md-6 col-md-offset-3 col-sm-10 col-sm-offset-1">
     {% block content %}{% endblock content %}
 
     {% block social_sharing %}
@@ -24,7 +26,7 @@
     {% endblock social_sharing %}
     <div class="center-block embed-a"><a href="/embed.html"><i class="fa fa-code" aria-hidden="true"></i> Embed this on your site</a></div>
 
-    <footer class="col-md-10 col-md-offset-1 col-lg-8 col-lg-offset-2">
+    <footer>
       <div class="footer-content">
         {% block attribution_heading %}
         <h2>Attribution</h2>
@@ -33,4 +35,6 @@
         <img src="/static/images/pw-logo-light.png" />
       </div>
     </footer>
+  </div>
+</div>
 {% endblock %}

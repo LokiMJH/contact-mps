@@ -25,26 +25,50 @@ a {
 
 .create-email-page {
   background-color: #fff;
-  color: #bbb;
   h1, h2, h3, h4, h5, h6 {
     font-family: 'Slabo 27px', serif;
   }
 }
 
+header {
+  h3 {
+    font-family: Helvetica Neue, 'Open Sans', sans-serif;
+    font-size: 32px;
+    color: $blue;
+    text-align: center;
+
+  }
+
+  margin-bottom: 30px;
+}
+
 .hero {
   background: #fff url('/static/images/building-new.jpg');
-  height: 460px;
   background-size: contain;
   background-repeat: no-repeat;
+  background-position: center top;
+  height: 350px;
   color: #fff;
   text-align: right;
+
+  padding: 10px 10px 20px 10px;
+
+  @media (min-width: 500px) {
+    height: 460px;
+  }
+
+  @media (min-width: 767px) {
+    height: 661px;
+  }
+
   h1 {
     font-family: 'Playfair Display', serif;
-    font-size: 55px;
+    font-size: 35px;
     margin-top: 0;
-    padding-top: 3%;
-    padding-right: 5%;
     color: #fff;
+    @media (min-width: 576px) {
+      font-size: 55px;
+    }
   }
   h2 {
     font-family: 'Playfair Display', serif;
@@ -63,6 +87,7 @@ a {
     text-align: center;
   }
 }
+
 .choose {
   width: 100%;
   margin-top: 0px;

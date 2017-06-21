@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 {% load strip_qs pipeline %}
 
-{% block title %}I, {{ email.from_name }}, sent a message to {{ email.to_persnop.name }} MP!{% endblock %}
-{% block og_title %}I, {{ email.from_name }}, sent a message to {{ email.to_person.name }} MP!{% endblock %}
-{% block tweet %}I, {{ email.from_name }}, sent a message to {{ email.to_person.name }} MP!{% endblock %}
+{% block title %}{{ email.from_name }} sent a message to Hon. Member {{ email.to_persnop.name }} in Parliament.{% endblock %}
+{% block og_title %}{{ email.from_name }} sent a message to Hon. Member {{ email.to_person.name }} in Parliament.{% endblock %}
+{% block tweet %}{{ email.from_name }} sent a message to Hon. Member {{ email.to_person.name }} in Parliament{% endblock %}
 {# whatsapp_msg must be urlencoded #}
 {% block whatsapp_msg %}I,%20{{ email.from_name|urlencode }},%20sent%20a%20message%20to%20{{ email.to_person.name|urlencode }}%20MP!%20Will%20you?%20{{ BASE_URL }}{{ request.path }}wa/{% endblock %}
 
@@ -31,7 +31,7 @@
 	</div>
 
 	<div class="email-body">
-	  {{ email.body }}
+	  {{ email.body_html|safe }}
 	</div>
 
 	<div class="text-center">

@@ -18,11 +18,13 @@
 
 {% block content %}
 <div class="create-email-page">
-  <section class="hero">
-    <h1>#RepresentMe</h1>
-    <h2>Your Parliament. Your Voice.</h2>
-    <h3>Have your say in the vote of no confidence in the President.</h3>
-  </section>
+  <header>
+    <section class="hero">
+      <h1>#RepresentMe</h1>
+      <h2>Your Parliament. Your Voice.</h2>
+      <h3>Have your say in the vote of no confidence in the President.</h3>
+    </section>
+  </header>
 
   <form id="email-form" action="/email/" method="post">
     {% csrf_token %}
@@ -32,6 +34,8 @@
   {{ form.subject.as_hidden }}
 
     <section class="choose">
+      <h3>Email a Member of Parliament:</h3>
+
       <div class="row">
       {% for person in neglected_persons %}
         <div class="col-xs-6 mp-wrap">

@@ -88,7 +88,7 @@ def email(request):
         to_person=person,
         from_name=form.cleaned_data['name'],
         from_email=form.cleaned_data['email'],
-        body=form.cleaned_data['body'],
+        body_txt=form.cleaned_data['body'],
         subject=form.cleaned_data['subject'],
         remote_ip=remote_ip,
         user_agent=request.META.get('HTTP_USER_AGENT')
